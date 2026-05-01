@@ -18,10 +18,11 @@ int STBY = 2;
 // --- PID Values ---
 float Kp = 0.05;   // your working Kp value
 float Kd = 0.11;    // start here, tune upward
-int baseSpeed = 150;
+int baseSpeed = 130;
 const uint16_t SHARP_TURN_THRESHOLD = 900;
-const int sharpTurnSlowSpeed = 0;
-const int sharpTurnFastSpeed = 120;
+const int sharpTurnSlowSpeed = -20;
+const int sharpTurnFastSpeed = 95;
+int turnSpeed=baseSpeed-20;
 
 // --- D needs last error ---
 int lastError = 0;
@@ -96,7 +97,12 @@ void loop() {
     Serial.print(" | Error: "); Serial.println(error);
     return;
   }
-
+  
+  //slow turns
+  // if(error > 1500){
+  //   moveForward(turnSpeed , turnSpeed);
+  //   return;
+  // }
   // 2. D — how fast is error changing
   int dError = error - lastError;
 
